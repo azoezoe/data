@@ -1,5 +1,5 @@
 install.packages('readr')
-install.packages('plyr')
+install.packages('plyr',repos = "http://cran.us.r-project.org")
 install.packages('tidyr')
 install.packages('dplyr')
 install.packages('rvest')
