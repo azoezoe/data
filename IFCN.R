@@ -9,10 +9,11 @@ library(dplyr)
 library(rvest)
 library(readr)
 url_list2 <- read_csv("https://raw.githubusercontent.com/azoezoe/data/master/url_list2.csv")
-IFCN5<-data.frame()
-g<-url_list2$url
-for(g in url_list2$url){
-  html<-read_html(g,encoding="UTF-8")
+
+i=url_list2$url
+IFCN<-data.frame()
+for(i in url_list2$url){
+  html<-read_html(i,encoding="UTF-8")
   by<-html_text(html_nodes(html,'.entry-content__text--org'))
   date_country<-html_text(html_nodes(html,'strong'))
   trueorfalse<-html_text(html_nodes(html,'.entry-title--red'))
@@ -20,7 +21,8 @@ for(g in url_list2$url){
   content<-html_text(html_nodes(html,'.entry-content__text--explanation'))
   url<-html_attr(html_nodes(html,".entry-content__button--smaller"),"href")
   platform<-html_text(html_nodes(html,'.entry-content__button--smaller+ .entry-content__text--smaller'))
-  Sys.sleep(15)
-  IFCN5<-rbind(IFCN5,data.frame(by=by,date_country=date_country,trueorfalse=trueorfalse,title=title,content=content,url=url,platform=platform))
-}
-write.csv(IFCN5,"./IFCN5.csv",row.names = FALSE)
+  Sys.sleep(10)
+  temp<-data.frame(by=by,date_country=date_country,trueorfalse=trueorfalse,title=title,content=content,url=url,platform=platform)
+  IFCN<-rbind(IFCN,temp)
+  
+  write.csv(IFCN,"./IFCN.csv",row.names = FALSE)
